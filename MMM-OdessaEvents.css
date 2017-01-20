@@ -20,11 +20,12 @@
 .MMM-OdessaEvents .desc {
   position: absolute;
   display: block !important;
-  bottom: 13px;
+  bottom: 12px;
   left:0;
   right:0;
   background-color: rgba(10, 10, 10, 0.72);
   line-height: 0.5em;
+  /*filter: blur(5px);*/
 }
 
 .MMM-OdessaEvents .poster-box .line1 {
