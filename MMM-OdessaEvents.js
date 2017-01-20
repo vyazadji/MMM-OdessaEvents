@@ -2,8 +2,9 @@ Module.register("MMM-OdessaEvents",{
 
   // Default module config.
   defaults: {
-    visibleItems: 6
-    //text: "Hello World, Odessa!"
+    visibleItems: 6,
+    rotateInterval: 60 * 1000, //60 sec
+    updateDateInterval: 24 * 60 * 60 * 1000 //24 hours
   },
 
   // Define required translations.
@@ -39,33 +40,35 @@ Module.register("MMM-OdessaEvents",{
       this.events_html = payload.events_html;
       this.updateDom();
       this.startSlider();
+
+      setTimeout(function(){
+        this.sendSocketNotification('SET_CONFIG', this.config);
+      }.bind(this), this.config.updateDateInterval);
     }
   },
 
+
   startSlider: function () {
     this.firstVisibleItem = 0;
+    if (this.timerId) clearInterval(this.timerId);
 
+    this.rotateItems();
+
+    this.timerId = setInterval(this.rotateItems.bind(this), this.config.rotateInterval);
+  },
+
+  rotateItems: function (){
     var $items = $(".MMM-OdessaEvents li.event");
+
+    if (this.firstVisibleItem > $items.length) {
+      this.firstVisibleItem = 0;
+    }
 
     $items.hide();
     $items.slice(this.firstVisibleItem, this.firstVisibleItem + this.config.visibleItems).show();
 
-    clearInterval(this.timerId);
 
-    this.timerId = setInterval(function(){
-      var $items = $(".MMM-OdessaEvents li.event");
-
-      if (this.firstVisibleItem > $items.length) {
-        this.firstVisibleItem = 0;
-      }
-
-      $items.hide();
-      $items.slice(this.firstVisibleItem, this.firstVisibleItem + this.config.visibleItems).show();
-
-
-      this.firstVisibleItem = this.firstVisibleItem + this.config.visibleItems;
-    }.bind(this), 30 * 1000);
-
+    this.firstVisibleItem = this.firstVisibleItem + this.config.visibleItems;
   }
 });
 

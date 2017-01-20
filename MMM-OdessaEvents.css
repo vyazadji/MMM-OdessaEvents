@@ -8,7 +8,38 @@
 
 .MMM-OdessaEvents li.event {
   float: left;
-  /*display: none;*/
+  margin-right: 15px;
 }
 
+
+.MMM-OdessaEvents .poster-box {
+  position: relative;
+}
+
+
+.MMM-OdessaEvents .desc {
+  position: absolute;
+  display: block !important;
+  bottom: 13px;
+  left:0;
+  right:0;
+  background-color: rgba(10, 10, 10, 0.72);
+  line-height: 0.5em;
+}
+
+.MMM-OdessaEvents .poster-box .line1 {
+  font-size:15px;line-height:1.1em;
+}
+.MMM-OdessaEvents .poster-box .line2 {
+  font-size:13px;line-height:1.1em;
+}
+
+.MMM-OdessaEvents .desc ul {
+  width: 158px;
+  font-size: 12px;
+  list-style: none;
+
+  line-height: 1.5em;
+  padding-left: 5px;
+}
 
