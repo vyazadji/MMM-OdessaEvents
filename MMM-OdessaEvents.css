@@ -1,0 +1,14 @@
+.MMM-OdessaEvents ul.events {
+  list-style-type: none;
+  margin: 0;
+  padding; 0;
+  height: 200px;
+}
+
+
+.MMM-OdessaEvents li.event {
+  float: left;
+  /*display: none;*/
+}
+
+

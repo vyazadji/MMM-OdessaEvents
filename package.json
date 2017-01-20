@@ -1,0 +1,10 @@
+{
+  "name"         : "MMM-Odessa-events",
+  "version"      : "0.0.1",
+  "description"  : "Scrub information about events in Odessa",
+  "author"       : "Vasiliy Yazadji",
+  "dependencies" : {
+    "request"    : "latest",
+    "cheerio"    : "latest"
+  }
+}
