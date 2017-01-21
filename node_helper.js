@@ -10,12 +10,6 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 module.exports = NodeHelper.create({
-  // Subclass start method.
-  /*
-  start: function() {
-  },
-  */
-
   socketNotificationReceived: function(notification, payload) {
     //console.log("+++Receve socket notification from UI: " + notification);
     if (notification === 'SET_CONFIG') {
@@ -24,36 +18,21 @@ module.exports = NodeHelper.create({
   },
 
   getEvents: function() {
-   url = 'http://www.kassir24.com.ua/'; //TODO move in config ???
+    var url = 'http://www.kassir24.com.ua/';
 
-    // The structure of our request call
-    // The first parameter is our URL
-    // The callback function takes 3 parameters, an error, response status code and the html
-
-   var self = this;
-
+    var self = this;
     request(url, function(error, response, html){
 
-        // First we'll check to make sure no errors occurred when making the request
-        if(!error){
-
-            // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
-            var $ = cheerio.load(html);
-
-            var events_html = $('#events-bx').html();
-            /*
-            $('#events-bx').each(function(i, elem) {
-              var $poster = $(this);
-
-              titles.push($poster.find('.line1').text());
-            });
-            */
-
-
-            self.sendSocketNotification("EVENTS_HTML", {
-              events_html: events_html
-            });
-        }
+      // First we'll check to make sure no errors occurred when making the request
+      if(!error){
+        var $ = cheerio.load(html);
+        var events_html = $('#events-bx').html();
+        self.sendSocketNotification("GET_ODESSA_EVENTS", {
+          events_html: events_html
+        });
+      } else {
+        console.log("Error in module " + this.name + ": " + error);
+      }
     });
   }
 });

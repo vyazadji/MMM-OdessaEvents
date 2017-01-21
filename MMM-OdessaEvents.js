@@ -3,7 +3,7 @@ Module.register("MMM-OdessaEvents",{
   // Default module config.
   defaults: {
     visibleItems: 6,
-    rotateInterval: 60 * 1000, //60 sec
+    rotateInterval: 10 * 60 * 1000, //ms
     updateDateInterval: 24 * 60 * 60 * 1000 //24 hours
   },
 
@@ -18,7 +18,7 @@ Module.register("MMM-OdessaEvents",{
   },
 
   start: function(){
-    this.events_html = "<span>Загрузка мероприятий</span>";
+    this.events_html = "<span>Загрузка мероприятий ...</span>";
   },
 
   // Override dom generator.
@@ -36,7 +36,7 @@ Module.register("MMM-OdessaEvents",{
 
   // Override socket notification handler.
   socketNotificationReceived: function(notification, payload) {
-    if (notification === "EVENTS_HTML") {
+    if (notification === "GET_ODESSA_EVENTS") {
       this.events_html = payload.events_html;
       this.updateDom();
       this.startSlider();
@@ -59,12 +59,12 @@ Module.register("MMM-OdessaEvents",{
 
   rotateItems: function (){
     var $items = $(".MMM-OdessaEvents li.event");
+    $items.hide();
 
     if (this.firstVisibleItem > $items.length) {
       this.firstVisibleItem = 0;
     }
 
-    $items.hide();
     $items.slice(this.firstVisibleItem, this.firstVisibleItem + this.config.visibleItems).show();
 
 
