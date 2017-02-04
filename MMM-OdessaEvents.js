@@ -3,8 +3,8 @@ Module.register("MMM-OdessaEvents",{
   // Default module config.
   defaults: {
     visibleItems: 6,
-    rotateInterval: 10 * 60 * 1000, //ms
-    updateDateInterval: 24 * 60 * 60 * 1000 //24 hours
+    rotateInterval: 10/*min*/ * 60 * 1000,
+    updateEventsInterval: 24/*hours*/ * 60 * 60 * 1000
   },
 
   // Define required translations.
@@ -43,7 +43,7 @@ Module.register("MMM-OdessaEvents",{
 
       setTimeout(function(){
         this.sendSocketNotification('SET_CONFIG', this.config);
-      }.bind(this), this.config.updateDateInterval);
+      }.bind(this), this.config.updateEventsInterval);
     }
   },
 
